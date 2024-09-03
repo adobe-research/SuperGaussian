@@ -16,8 +16,8 @@ def run_video_upsampling(video_upsampling_prior, gpu_i, input_path, output_path,
     os.makedirs(output_path, exist_ok=True)
     if video_upsampling_prior == 'realbasicvsr':
         command = (
-            f"cd /home/yuan/PycharmProjects/SuperGaussian_ECCV24/third_parties/RealBasicVSR && " # changes to your RealBasicVSR path
-            f"CUDA_VISIBLE_DEVICES={gpu_i} /home/yuan/miniconda3/envs/realbasicvsr/bin/python inference_realbasicvsr_4x.py "
+            f"cd third_parties/RealBasicVSR && " 
+            f"CUDA_VISIBLE_DEVICES={gpu_i} /home/yuan/miniconda3/envs/realbasicvsr/bin/python inference_realbasicvsr_4x.py " # change to realbasicvsr conda env python path
             f"configs/realbasicvsr_x4.py "
             f"checkpoints/RealBasicVSR_x4.pth {input_path} {output_path} "
         )
@@ -46,7 +46,7 @@ def fitting_with_3dgs(image_path, gt_img_path, transform_path, initial_pcd_path,
         if not os.path.exists(output_path + '/last_gaussian.ckpt'):
             os.symlink(latest_gaussian_ckpt, output_path + '/last_gaussian.ckpt')
         command = (
-            f"cd /home/yuan/projects/SuperGaussian/third_parties/gaussian-splatting && "
+            f"cd third_parties/gaussian-splatting && "
             f"CUDA_VISIBLE_DEVICES={gpu_i} /opt/venv/bin/python train.py "
             f"--exp_name {output_path} "
             f"--iterations {optimization_step} "
@@ -54,7 +54,7 @@ def fitting_with_3dgs(image_path, gt_img_path, transform_path, initial_pcd_path,
         )
     else:
         command = (
-            f"cd /home/yuan/projects/SuperGaussian/third_parties/gaussian-splatting && "
+            f"cd third_parties/gaussian-splatting && "
             f"CUDA_VISIBLE_DEVICES={gpu_i} /home/yuan/miniconda3/envs/super_gaussian_eccv24/bin/python train.py " # change to your python environment
             f"--exp_name {output_path} "
             f"--iterations {optimization_step} "

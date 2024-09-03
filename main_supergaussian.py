@@ -26,8 +26,7 @@ class Args:
 
     video_upsampling_prior = 'realbasicvsr'
 
-    #"/home/yuan/projects/SuperGaussian/data/demo/gaussian_demo/Nathan_Guitar_Crop.ply"
-    procedure: tuple = ('video_upsampling', 'fitting_with_3dgs', ) # operations from video_upsampling, bilinear_X, fitting_with_3dgs) # operations from video_upsampling, bilinear_X, fitting_with_3dgs
+    procedure: tuple = ('video_upsampling', 'fitting_with_3dgs', )  # operations from video_upsampling, bilinear_X, fitting_with_3dgs
 
     optimization_step = 2000
     """optimization steps for the gaussian splats"""
@@ -144,7 +143,7 @@ def worker(
         for plan in args.procedure:
             curr_output_path = f"{os.path.dirname(os.path.abspath(__file__))}/test_results/{batch['scene_dir'][0]}/super_gaussian_with_realbasicvsr/step_{step}_{plan}"
             if plan == 'video_upsampling':
-                output_resolution = latest_resolution * 4 # no matter what upsampling scale of the prior, it will force to output this resolution
+                output_resolution = latest_resolution * 4 # since the VSR prior is doing 4x upsampling
                 run_video_upsampling(args.video_upsampling_prior, gpu_i,
                                      latest_res_path,
                                      f"{curr_output_path}/{output_resolution}x{output_resolution}",
@@ -161,7 +160,6 @@ def worker(
                 latest_resolution = output_resolution
                 latest_res_path = f"{curr_output_path}/{output_resolution}x{output_resolution}"
             elif plan == 'fitting_with_3dgs':
-                # assert latest_resolution == 2048
                 optimization_step = args.optimization_step if latest_gaussian_ckpt is None else args.restoration_optimization_step
                 fitting_with_3dgs(latest_res_path,
                                   high_res_image_folder,

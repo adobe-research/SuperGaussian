@@ -79,6 +79,7 @@ class MVImageNetTestDataset(Dataset):
         return res
         # except:
         #     return {'status': False, 'book_idx': -1}
+
     def get_item_helper(self, idx):
         scene_dir = self.split_scene_dirs[idx]
         cameras_extrinsic_file = os.path.join(self.testset_root, scene_dir, "cam_extrinsics.pkl")
@@ -132,8 +133,6 @@ class MVImageNetTestDataset(Dataset):
             intrisic = np.eye(3)
             if intr.model == 'SIMPLE_RADIAL':
                 focal_length_x = intr.params[0]
-                # FovY = focal2fov(focal_length_x, orig_height)
-                # FovX = focal2fov(focal_length_x, orig_width)
                 intrisic[0][0] = focal_length_x
                 intrisic[1][1] = focal_length_x
                 intrisic[0][2] = intr.params[1]
@@ -191,19 +190,3 @@ class MVImageNetTestDataset(Dataset):
                 "high_res_images": high_res_images,
                 "img_filenames": img_filenames,
                 'status': 1}
-
-#
-# if __name__ == "__main__":
-#     objaverse_dataset = MVImageNetImageUpsamplerTestDataset(None, 4096, True,4, 0)
-#     dataloader = DataLoader(
-#         objaverse_dataset,
-#         batch_size=1,
-#         shuffle=False,
-#         num_workers=1,
-#         pin_memory=False,  # https://developer.nvidia.com/blog/how-optimize-data-transfers-cuda-cc/
-#     )
-#
-#     for i, batch in tqdm(enumerate(dataloader), total=len(dataloader)):
-#         pass
-#
-#     print('Done')
