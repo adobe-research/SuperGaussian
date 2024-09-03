@@ -1,0 +1,6 @@
+.idea
+data
+**/__pycache__
+*/*.egg-info
+*/build
+third_parties/RealBasicVSR/checkpoints
