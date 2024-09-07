@@ -2,6 +2,12 @@
 
 Official codebase for SuperGaussian accepted to ECCV 2024. 
 
+### Quick start with Docker image
+```
+docker pull yshen47/adobe_supergaussian:latest
+docker run -it -v $(pwd):/mnt/SuperGaussian_ECCV24 --shm-size=64g --gpus all yshen47/adobe_supergaussian:latest bash
+```
+
 ### Installment
 ```
 conda create -n super_gaussian_eccv24 python=3.8 -y
@@ -25,6 +31,8 @@ pip install mmedit==0.15.0
 
 conda activate super_gaussian_eccv24
 ```
+
+
 
 ### Inference
 
