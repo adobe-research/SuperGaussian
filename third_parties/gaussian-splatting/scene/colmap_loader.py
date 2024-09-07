@@ -13,8 +13,6 @@ import numpy as np
 import collections
 import struct
 import sys
-sys.path.extend(['/home/yuan/projects/SuperGaussian'])
-from sg_utils.flash_s3_dataloader.s3_io import _read_s3_to_bytesio
 CameraModel = collections.namedtuple(
     "CameraModel", ["model_id", "model_name", "num_params"])
 Camera = collections.namedtuple(
@@ -130,10 +128,7 @@ def read_points3D_binary(path_to_model_file, s3_client=None):
         void Reconstruction::ReadPoints3DBinary(const std::string& path)
         void Reconstruction::WritePoints3DBinary(const std::string& path)
     """
-    if s3_client is not None:
-        fid = _read_s3_to_bytesio(path_to_model_file, s3_client)
-    else:
-        fid = open(path_to_model_file, "rb")
+    fid = open(path_to_model_file, "rb")
 
     num_points = read_next_bytes(fid, 8, "Q")[0]
 
@@ -189,10 +184,7 @@ def read_extrinsics_binary(path_to_model_file, s3_client=None):
         void Reconstruction::WriteImagesBinary(const std::string& path)
     """
     images = {}
-    if s3_client is not None:
-        fid = _read_s3_to_bytesio(path_to_model_file, s3_client)
-    else:
-        fid = open(path_to_model_file, "rb")
+    fid = open(path_to_model_file, "rb")
 
     num_reg_images = read_next_bytes(fid, 8, "Q")[0]
     for _ in range(num_reg_images):
@@ -229,10 +221,7 @@ def read_intrinsics_binary(path_to_model_file, s3_client=None):
         void Reconstruction::ReadCamerasBinary(const std::string& path)
     """
     cameras = {}
-    if s3_client is not None:
-        fid = _read_s3_to_bytesio(path_to_model_file, s3_client)
-    else:
-        fid = open(path_to_model_file, "rb")
+    fid = open(path_to_model_file, "rb")
 
     num_cameras = read_next_bytes(fid, 8, "Q")[0]
     for _ in range(num_cameras):

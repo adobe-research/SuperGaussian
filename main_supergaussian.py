@@ -24,9 +24,9 @@ class Args:
     cache_path: str = '/mnt/localssd'
     """Path to the scene cache"""
 
-    video_upsampling_prior = 'realbasicvsr'
+    upsampling_prior = 'gigagan' # 'realbasicvsr' or 'videogigagan' or 'gigagan'
 
-    procedure: tuple = ('video_upsampling', 'fitting_with_3dgs', )  # operations from video_upsampling, bilinear_X, fitting_with_3dgs
+    procedure: tuple = ('upsampling', 'fitting_with_3dgs', )  # operations from upsampling, bilinear_X, fitting_with_3dgs
 
     optimization_step = 2000
     """optimization steps for the gaussian splats"""
@@ -78,7 +78,7 @@ def worker(
             break
         # Perform some operation on the item
         batch, gpu_i = item
-        curr_output_path = f"{os.path.dirname(os.path.abspath(__file__))}/test_results/{batch['scene_dir'][0]}/super_gaussian_with_realbasicvsr"
+        curr_output_path = f"{os.path.dirname(os.path.abspath(__file__))}/test_results/{batch['scene_dir'][0]}/super_gaussian_with_{args.upsampling_prior}"
 
         os.makedirs(curr_output_path, exist_ok=True)
         with open(f"{curr_output_path}/config.json", 'w+') as f:
@@ -133,7 +133,7 @@ def worker(
         except Exception as e:
             print(str(e))
             return
-        \
+        
         initial_pcd_path = prepare_rgbd(curr_output_path, num_of_gaussians, batch['xyz'][0], batch['rgb'][0])
 
         step = 1
@@ -141,15 +141,24 @@ def worker(
         latest_res_path = image_folder
         latest_gaussian_ckpt = None
         for plan in args.procedure:
-            curr_output_path = f"{os.path.dirname(os.path.abspath(__file__))}/test_results/{batch['scene_dir'][0]}/super_gaussian_with_realbasicvsr/step_{step}_{plan}"
-            if plan == 'video_upsampling':
+            curr_output_path = f"{os.path.dirname(os.path.abspath(__file__))}/test_results/{batch['scene_dir'][0]}/super_gaussian_with_{args.upsampling_prior}/step_{step}_{plan}"
+            if plan == 'upsampling':
                 output_resolution = latest_resolution * 4 # since the VSR prior is doing 4x upsampling
-                run_video_upsampling(args.video_upsampling_prior, gpu_i,
+                if args.upsampling_prior == 'realbasicvsr':
+                    run_video_upsampling(upsampling_prior, gpu_i,
                                      latest_res_path,
                                      f"{curr_output_path}/{output_resolution}x{output_resolution}",
-                                     output_resolution,
-                                     "single_video"
                                      )
+                elif args.upsampling_prior == 'videogigagan':
+                    # we loaded the upsampled images for MVImgNet using videogigagan
+                    shutil.copytree(f"data/mvimgnet_testset_500/{batch['scene_dir'][0]}/upsampled_rgb_videogigagan",
+                                    f"{curr_output_path}/{output_resolution}x{output_resolution}")
+                elif args.upsampling_prior == 'gigagan':
+                    # we loaded the upsampled images for MVImgNet using gigagan
+                    shutil.copytree(f"data/mvimgnet_testset_500/{batch['scene_dir'][0]}/gigagan_image",
+                                    f"{curr_output_path}/{output_resolution}x{output_resolution}")
+                else:
+                    raise
                 latest_resolution = output_resolution
                 latest_res_path = f"{curr_output_path}/{output_resolution}x{output_resolution}"
             elif 'bilinear' in plan:
