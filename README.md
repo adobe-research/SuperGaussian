@@ -117,7 +117,7 @@ python main_super_gaussian.py    # change upsampling_prior variable in Line 23 t
 python evaluation.py             # change target variable in Line 94 to switch between different priors.
 ```
 2. We provide the above evaluation results for all priors, if you hope to make an Apple-to-Apple comparison between our SuperGaussian using VideoGigaGAN with your method. 
-You can download from this link to get all our inference results on GigaGAN, VideoGigaGAN and RealBasicVSR. You are able to access 3D upsampled gaussians 
+You can download from [this link](https://uofi.box.com/s/cwjeo5sp6t2d81wcof0okqv6fn7aje8p) to get all our inference results on GigaGAN, VideoGigaGAN and RealBasicVSR. You are able to access 3D upsampled gaussians 
 and final 4x renderings with all poses in the test scenes.
 
 
