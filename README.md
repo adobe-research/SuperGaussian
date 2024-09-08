@@ -129,4 +129,4 @@ and final 4x renderings with all poses in the test scenes.
 | VideoGigaGAN | 0.1290  | 6.80    | 24.24  | 
 | RealBasicVSR | 0.1924  | 7.58    | 41.40  |
 ```
-Note some of the above numbers for GigaGAN and VideoGigaGAN are slightly better than the reported results in the paper, as we re-generated the above cached upsampled results with different priors in different environment used during our submission (some seeds might be different).
+Note some of the above numbers for GigaGAN and VideoGigaGAN are slightly better than the reported results in the paper, as we re-generated the above cached upsampled results in different dev environment used during our submission (some seeds might be different).
