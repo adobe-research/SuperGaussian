@@ -9,7 +9,7 @@ ECCV 2024
 TLDR: Instead of image prior, we use video upsampling prior to achieve 3D upsampling on generic low-res 3D representations. 
 
 In this codebase, we provide a SuperGaussian implementation on a third-parties video upsampling prior, [RealBasicVSR](https://github.com/ckkelvinchan/RealBasicVSR). 
-Additionally, our codebase provides our 3D upsampling evaluations on the MVImgNet test set given the upsampled image sequence from the image prior GigaGAN (image) and video prior Videogigagan (video).
+Additionally, our codebase provides 3D upsampling evaluations on the MVImgNet testset given the upsampled image sequences from the image prior GigaGAN (image) and video prior Videogigagan (video).
 Hopefully, this could help the community to reproduce our results and compare with other methods.
 
 ### Dependencies
