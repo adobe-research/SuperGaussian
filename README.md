@@ -51,36 +51,60 @@ ln -s /mnt/data data
 ### Test data Download
 
 1. Download the MVImgNet test set with 523 scenes. Each scene are grouped first by its category id and then scene id, defined by MVImgNet.
-The test scenes are selected for its rich details, diversity and challenging scenarios. Within each scene folder, the directory are organized as follows:
+The test scenes are selected for its rich details, diversity and challenging scenarios. Within each scene folder, the directory are organized as follows. Please use our provided dataloader to load data (dataset/mvimg_test_dataset.py)
 ```     
 --- [category_id]/[scene_id]
-    --- cam_extrinsics.pkl
-    --- cam_intrinsics.pkl
-    --- rgb.pkl
-    --- xyz.pkl
-    --- novel_trajectory_poses
+    --- cam_extrinsics.pkl          # camera extrinsics
+    --- cam_intrinsics.pkl          # camera intrinsics
+    --- rgb.pkl                     # low-res 3DGS rgb
+    --- xyz.pkl                     # low-res 3DGS xyz(position)
+    --- novel_trajectory_poses      # we prepare several novel trajectory poses for evaluation to avoid overfit to gt trajectory. Trajectory specified in 000.json is used for test evaluation. 
         --- 0000.json
         --- 0001.json
         ...
-    --- gt_rgb
+    --- gt_rgb                      # The original ground_truth RGB images in MVImgNet
         --- 0000.png
         --- 0001.png
         ...
-    --- LR_131072_gaussian
-        --- 0000.png
+    --- LR_131072_gaussian          # The low-res 3DGS renderings we prepaed in MVImgNet 
+        --- 0000.png                # images without prefix are original RGB sequences in MVImgNet
         --- 0001.png
         ...
-    --- HR_131072_gaussian
-        --- 0000.png
+        --- traj_0_000.png          # images with prefix 'traj_0' are the novel trajectory images in MVImgNet. traj_0 is used for test evaluation.
+        --- traj_0_001.png
+        ...
+        --- traj_1_000.png          # images with prefix 'traj_1' are the novel trajectory images in MVImgNet. traj_1 is added into the upsampling and 3D lifting.
+        --- traj_1_001.png
+        ...
+    --- HR_131072_gaussian          # The high-res 3DGS renderings we prepared in MVImgNet ( so it can be used as 'gt' on the test trajectory)
+        --- 0000.png                # images without prefix are original RGB sequences in MVImgNet
         --- 0001.png
+        ...
+        --- traj_0_000.png          # images with prefix 'traj_0' are the novel trajectory images in MVImgNet. traj_0 is used for test evaluation.
+        --- traj_0_001.png
+        ...
+        --- traj_1_000.png          # images with prefix 'traj_1' are the novel trajectory images in MVImgNet. traj_1 is added into the upsampling and 3D lifting.
+        --- traj_1_001.png
         ...
         
-    --- gigagan_image
-        --- 0000.png
+    --- gigagan_image               # The upsampled RGB images using image upsampling prior, [GigaGAN](https://mingukkang.github.io/GigaGAN/)
+        --- 0000.png                # images without prefix are original RGB sequences in MVImgNet
         --- 0001.png
         ...
-    ... upsampled_rgb_videogigagan
-        --- 0000.png
+        --- traj_0_000.png          # images with prefix 'traj_0' are the novel trajectory images in MVImgNet. traj_0 is used for test evaluation.
+        --- traj_0_001.png
+        ...
+        --- traj_1_000.png          # images with prefix 'traj_1' are the novel trajectory images in MVImgNet. traj_1 is added into the upsampling and 3D lifting.
+        --- traj_1_001.png
+        ...
+    ... upsampled_rgb_videogigagan  # The upsampled RGB images using video upsampling prior, [VideoGigaGAN](https://videogigagan.github.io/)
+        --- 0000.png                # images without prefix are original RGB sequences in MVImgNet
         --- 0001.png
         ...
-```bash
+        --- traj_0_000.png          # images with prefix 'traj_0' are the novel trajectory images in MVImgNet. traj_0 is used for test evaluation.
+        --- traj_0_001.png
+        ...
+        --- traj_1_000.png          # images with prefix 'traj_1' are the novel trajectory images in MVImgNet. traj_1 is added into the upsampling and 3D lifting.
+        --- traj_1_001.png
+        ...
+```
