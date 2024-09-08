@@ -1,8 +1,6 @@
-import random
 import json
 import os
 import pickle
-from sg_utils.colmap_utils import read_extrinsics_binary
 import torchvision.transforms as transforms
 import PIL
 import multiprocessing
@@ -14,9 +12,6 @@ from pathlib import Path
 import time
 from tqdm import tqdm
 from torchmetrics.image.inception import InceptionScore
-
-
-num_workers = 16
 
 def worker(
     queue: multiprocessing.JoinableQueue,
@@ -96,15 +91,16 @@ def get_images(scene_dir):
 
 
 if __name__ == '__main__':
-    target = 'realbasicvsr'
+    target = 'realbasicvsr' # 'realbasicvsr' or 'gigagan' or 'videogigagan'
+    num_workers = 16
 
     queue = multiprocessing.JoinableQueue()
     count = multiprocessing.Value("i", 0)
-    dataset_root = '/home/yuan/PycharmProjects/SuperGaussian_ECCV24/data'
-    target_root = f'/media/yuan/T7_citygen/supergaussian/{target}_test_results'
-    fid_gt_cache_path = f'/media/yuan/T7_citygen/supergaussian/evaluations/{target}_prior/gt_fid'
-    gt_cache_path = f'/media/yuan/T7_citygen/supergaussian/evaluations/{target}_prior/gt'
-    pred_cache_path = f'/media/yuan/T7_citygen/supergaussian/evaluations/{target}_prior/pred'
+    dataset_root = 'data'
+    target_root = f'{target}_test_results'
+    fid_gt_cache_path = f'evaluations/{target}_prior/gt_fid'
+    gt_cache_path = f'evaluations/{target}_prior/gt'
+    pred_cache_path = f'evaluations/{target}_prior/pred'
     os.makedirs(gt_cache_path,exist_ok=True)
     os.makedirs(pred_cache_path,exist_ok=True)
     os.makedirs(fid_gt_cache_path,exist_ok=True)
@@ -168,10 +164,5 @@ if __name__ == '__main__':
     img_list = list(sorted(Path(pred_cache_path).glob('*.png')))
     import random
     random.seed(0)
-    img_list = random.sample(img_list, 1000)
-    for pred_path in tqdm(img_list, total=len(img_list)):
-        img = torch.tensor(np.array(Image.open(str(pred_path)))).permute(2, 0, 1)[None, ]
-        inception.update(img)
-    print("IS: ", inception.compute())
     fid_metric = pyiqa.create_metric('fid')
     print("FID: ", fid_metric(fid_gt_cache_path, pred_cache_path))

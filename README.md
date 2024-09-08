@@ -50,7 +50,8 @@ ln -s /mnt/data data
 
 ### Test data Download
 
-1. Download the MVImgNet test set with 523 scenes. Each scene are grouped first by its category id and then scene id, defined by MVImgNet.
+1. Download the [MVImgNet test set](https://uofi.box.com/s/d13gifxwz573cr6li37r1m39cczrvzhm) with 523 scenes. Unzip the dataset in the project root, i.e., SuperGaussian/data. This should be the DATA_PATH to mount in your docker container. 
+Each scene are grouped first by its category id and then scene id, defined by MVImgNet.
 The test scenes are selected for its rich details, diversity and challenging scenarios. Within each scene folder, the directory are organized as follows. Please use our provided dataloader to load data (dataset/mvimg_test_dataset.py)
 ```     
 --- [category_id]/[scene_id]
@@ -108,3 +109,24 @@ The test scenes are selected for its rich details, diversity and challenging sce
         --- traj_1_001.png
         ...
 ```
+
+### Evaluation
+1. To run inference on all our test scenes, you can use the following command. If you do not feel like running the inference, go to 2.
+```bash
+python main_super_gaussian.py    # change upsampling_prior variable in Line 23 to switch between different priors.
+python evaluation.py             # change target variable in Line 94 to switch between different priors.
+```
+2. We provide the above evaluation results for all priors, if you hope to make an Apple-to-Apple comparison between our SuperGaussian using VideoGigaGAN with your method. 
+You can download from this link to get all our inference results on GigaGAN, VideoGigaGAN and RealBasicVSR. You are able to access 3D upsampled gaussians 
+and final 4x renderings with all poses in the test scenes.
+
+
+3. We provide the quantitative results using the above cached upsampling images below. Note RealBasicVSR is a third-party method, which we newly benchmarked. 
+```
+| Priors       | LPIPS ↓ | NIQE  ↓ | FID  ↓ | 
+|--------------|---------|---------|--------|
+| GigaGAN      | 0.1522  | 7.65    | 27.04  |
+| VideoGigaGAN | 0.1290  | 6.80    | 24.24  | 
+| RealBasicVSR | 0.1924  | 7.58    | 41.40  |
+```
+Note some of the above numbers for GigaGAN and VideoGigaGAN are slightly better than the reported results in the paper, as we re-generated the above cached upsampled results with different priors in different environment used during our submission (some seeds might be different).

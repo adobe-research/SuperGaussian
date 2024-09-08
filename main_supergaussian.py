@@ -17,18 +17,14 @@ from torch.utils.data import DataLoader
 DEBUG = 0 # change to 0 for multiprocess, 1 for single process.
 @dataclass
 class Args:
-    curr_division_id: int = 0
-    division: int = 1
-    novel_trajectory_num: int = 1
+    curr_division_id: int = 0 # no need to change. it is used to support multi program for faster parallel processing
+    division: int = 1        # no need to change. Total program to run. it is used to support multi program for faster parallel processing
 
-    cache_path: str = '/mnt/localssd'
-    """Path to the scene cache"""
-
-    upsampling_prior = 'gigagan' # 'realbasicvsr' or 'videogigagan' or 'gigagan'
+    upsampling_prior = 'realbasicvsr' # 'realbasicvsr' or 'videogigagan' or 'gigagan'
 
     procedure: tuple = ('upsampling', 'fitting_with_3dgs', )  # operations from upsampling, bilinear_X, fitting_with_3dgs
 
-    optimization_step = 2000
+    optimization_step = 2000    # fixed optimization steps for the gaussian splats used in our paper. Of course, the higher the better performance, but it takes longer.
     """optimization steps for the gaussian splats"""
 
     workers_per_gpu: int = (1 if DEBUG else 1)
@@ -76,7 +72,6 @@ def worker(
         item = queue.get()
         if item is None:
             break
-        # Perform some operation on the item
         batch, gpu_i = item
         curr_output_path = f"{os.path.dirname(os.path.abspath(__file__))}/test_results/{batch['scene_dir'][0]}/super_gaussian_with_{args.upsampling_prior}"
 
@@ -85,8 +80,8 @@ def worker(
             json.dump(args.__dict__, f, indent=4)
 
         try:
-            # dump to super_gaussian scene format (nerfstudio)
-            image_folder = curr_output_path + f'/64x64'
+            # dump to super_gaussian scene format
+            image_folder = curr_output_path + f'/64x64' # low-res is 64x64
             os.makedirs(image_folder, exist_ok=True)
             image_paths = []
             for image_i, image in enumerate(batch['images'][0]):
@@ -137,7 +132,7 @@ def worker(
         initial_pcd_path = prepare_rgbd(curr_output_path, num_of_gaussians, batch['xyz'][0], batch['rgb'][0])
 
         step = 1
-        latest_resolution = batch['images'].shape[4] # assume it's square image
+        latest_resolution = batch['images'].shape[4] # since our images are processed to be square images
         latest_res_path = image_folder
         latest_gaussian_ckpt = None
         for plan in args.procedure:
@@ -169,7 +164,7 @@ def worker(
                 latest_resolution = output_resolution
                 latest_res_path = f"{curr_output_path}/{output_resolution}x{output_resolution}"
             elif plan == 'fitting_with_3dgs':
-                optimization_step = args.optimization_step if latest_gaussian_ckpt is None else args.restoration_optimization_step
+                optimization_step = args.optimization_step
                 fitting_with_3dgs(latest_res_path,
                                   high_res_image_folder,
                                   transform_path,
@@ -224,9 +219,6 @@ if __name__ == "__main__":
         batch_size=1, # DO NOT CHANGE
         shuffle=False,
         num_workers=(0 if DEBUG else 4),
-        # prefetch_factor=(1 if DEBUG else 32),
-        # persistent_workers=True,
-        # pin_memory=False,  # https://developer.nvidia.com/blog/how-optimize-data-transfers-cuda-cc/
     )
 
     for idx, batch in enumerate(dataloader):
