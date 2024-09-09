@@ -6,6 +6,8 @@ ECCV 2024
 
 [Paper](https://arxiv.org/abs/2406.00609) │ [Project Page](https://supergaussian.github.io/)
 
+![Funny Cat](assets/teaser.gif)
+
 TLDR: Instead of image prior, we use video upsampling prior to achieve 3D upsampling on generic low-res 3D representations. 
 
 In this codebase, we provide a SuperGaussian implementation on a third-parties video upsampling prior, [RealBasicVSR](https://github.com/ckkelvinchan/RealBasicVSR). 
