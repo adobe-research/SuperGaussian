@@ -154,7 +154,56 @@ and final 4x renderings with all poses in the test scenes.
 | VideoGigaGAN | [downloading link](https://uofi.box.com/s/xma4iqhirebmtzzj01s40jnjdg12unnk) | realbasicvsr_prior folder in [link](https://uofi.box.com/s/cwjeo5sp6t2d81wcof0okqv6fn7aje8p) |
 | RealBasicVSR | [downloading link](https://uofi.box.com/s/lzakjip07upgullx7xunu6sausdydd95) | videogigagan_prior folder in [link](https://uofi.box.com/s/cwjeo5sp6t2d81wcof0okqv6fn7aje8p) |
 
-
+2.1 Here is detailed information on the output file structure after running main_super_gaussian.py
+```
+--- [category_id]/[scene_id]
+    --- 64x64               # low-res images
+        --- 0000.png
+        --- 0001.png
+        ...
+    --- gt/high_res_images   # high-res images
+        --- 0000.png
+        --- 0001.png
+        ...
+    --- step_1_upsampling    # intermediate results after running the first step of upsampling, either image upsampling or video upsampling
+        --- 256x256           
+            --- 0000.png
+            --- 0001.png
+            ...
+    --- step_2_fitting_with_3dgs  # final results after running the second step of 3DDGS
+        --- point_cloud
+            --- iteration_0
+            --- iteration_2000
+                --- predicted              # renderings from upsampled 3DGS
+                    --- 000.png
+                    --- 001.png
+                    ...
+                point_cloud.ply            # upsampled 3DGS
+                performance_novel.json     # reference based performance averaged within this scene
+        --- cameras.json                 # camera extrinsics and intrinsics 
+        --- input.ply                    # low-res 3DGS, you can also used color point cloud to initalize. 
+    --- configs.json                     # configurations used for this scene   
+    --- transforms.json                  # camera info used for this scene
+    --- surface_pcd_131072_seed_0.ply    # low-res 3DGS, same as the one in input.ply (which is copied from this file)
+```
+2.2
+```
+--- evaluations
+    --- gigagan_prior/realbasicvsr_prior/videogigagan_prior
+        --- gt                  # pseudo gt images rendered from high-res 3DGS on novel trajectory traj_0 sampled from all scenes for evaluation
+            --- XXX.png
+            --- XXX.png
+            ...
+        --- pred                # rendering from 3d upsampled gaussians on novel trajectory traj_0 sampled from all scenes for evaluation
+            --- XXX.png
+            --- XXX.png
+            ...
+            
+        --- gt_fid              # gt images in the original MVImgNet which are sampled from all scenes for evaluation on FID
+            --- XXX.png
+            --- XXX.png
+            ...
+```
 3. We provide the quantitative results using the above cached upsampling images below. Note RealBasicVSR is a third-party method, which we newly benchmarked. 
 ```
 | Priors       | LPIPS ↓ | NIQE  ↓ | FID  ↓ | 
