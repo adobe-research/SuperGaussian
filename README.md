@@ -12,6 +12,17 @@ In this codebase, we provide a SuperGaussian implementation on a third-parties v
 Additionally, our codebase provides 3D upsampling evaluations on the MVImgNet testset given the upsampled image sequences from the image prior GigaGAN (image) and video prior Videogigagan (video).
 Hopefully, this could help the community to reproduce our results and compare with other methods.
 
+### Citation
+Please cite our paper if you find this repo useful!
+```bibtex
+@inproceedings{Shen2024SuperGaussian,
+  title = {SuperGaussian: Repurposing Video Models for 3D Super Resolution},
+  author = {Shen, Yuan and Ceylan, Duygu and Guerrero, Paul and Xu, Zexiang and Mitra, {Niloy J.} and Wang, Shenlong and Fr{\"u}hst{\"u}ck, Anna},
+  booktitle = {European Conference on Computer Vision (ECCV)},
+  year = {2024},
+}
+```
+
 ### Dependencies
 
 #### 0. Hardware Requirements
@@ -48,9 +59,10 @@ pip install torch-fidelity
 
 conda activate super_gaussian_eccv24
 
+# change the python environment path in sg_utils/sg_helpers.py:20 and sg_utils/sg_helpers.py:47 to your conda environment path
 ```
 
-#### 2. Install with Docker
+#### 2. Install with Docker (Recommended)
 ```bash
 export DATA_PATH=[your data path (see testdata downloading section)]
 docker pull yshen47/adobe_supergaussian:latest
@@ -150,3 +162,4 @@ and final 4x renderings with all poses in the test scenes.
 | RealBasicVSR | 0.1924  | 7.58    | 41.40  |
 ```
 Note some of the above numbers for GigaGAN and VideoGigaGAN are slightly better than the reported results in the paper, as we re-generated the above cached upsampled results in different dev environment used during our submission (some seeds might be different).
+

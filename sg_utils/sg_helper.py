@@ -42,24 +42,13 @@ def fitting_with_3dgs(image_path, gt_img_path, transform_path, initial_pcd_path,
     if not os.path.exists(output_path + f'/resolution_low/{fn}'):
         os.symlink(initial_pcd_path, output_path + f'/resolution_low/{fn}')
 
-    if latest_gaussian_ckpt is not None:
-        if not os.path.exists(output_path + '/last_gaussian.ckpt'):
-            os.symlink(latest_gaussian_ckpt, output_path + '/last_gaussian.ckpt')
-        command = (
-            f"cd third_parties/gaussian-splatting && "
-            f"CUDA_VISIBLE_DEVICES={gpu_i} /opt/venv/bin/python train.py "
-            f"--exp_name {output_path} "
-            f"--iterations {optimization_step} "
-            f"-s {output_path} --use_low_res_as_gt --num_of_gaussians {num_of_gaussians} --load_iteration {latest_gaussian_ckpt} -r 1"
-        )
-    else:
-        command = (
-            f"cd third_parties/gaussian-splatting && "
-            f"CUDA_VISIBLE_DEVICES={gpu_i} /root/miniconda3/envs/super_gaussian_eccv24/bin/python train.py " # change to your python environment
-            f"--exp_name {output_path} "
-            f"--iterations {optimization_step} "
-            f"-s {output_path} --use_low_res_as_gt --num_of_gaussians {num_of_gaussians} -r 1"
-        )
+    command = (
+        f"cd third_parties/gaussian-splatting && "
+        f"CUDA_VISIBLE_DEVICES={gpu_i} /root/miniconda3/envs/super_gaussian_eccv24/bin/python train.py " # change to your python environment
+        f"--exp_name {output_path} "
+        f"--iterations {optimization_step} "
+        f"-s {output_path} --use_low_res_as_gt --num_of_gaussians {num_of_gaussians} -r 1"
+    )
     print(command)
     ret = subprocess.run(command, shell=True, executable='/bin/bash', check=True) # stdout=subprocess.DEVNULL,
     print(f"run fitting with 3dgs")
