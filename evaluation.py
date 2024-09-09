@@ -6,7 +6,6 @@ import PIL
 import multiprocessing
 import pyiqa
 from PIL import Image
-import numpy as np
 import torch
 from pathlib import Path
 import time

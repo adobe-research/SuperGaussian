@@ -29,14 +29,20 @@ rm -rf build && pip install -e .
 cd ../simple-knn
 rm -rf build && pip install -e .
 
-# install REALBasicvsr in another conda env
+# install RealBasicvsr in another conda env
 conda create -n realbasicvsr python=3.8 -y
 conda activate realbasicvsr
 pip install torch==1.7.1+cu110 torchvision==0.8.2+cu110 torchaudio==0.7.2 -f https://download.pytorch.org/whl/torch_stable.html # it needs to be torch 1.7.1. For CuDA, it depends on your GPU compatibility.
 pip install mmcv-full==1.5.0
 pip install mmedit==0.15.0
 
+# install Evaluation dependencies in a third conda env
+conda create -n supergaussian_evaluation python=3.10 -y
+conda activate supergaussian_evaluation
+pip install pyiqa torchmetrics
+  
 conda activate super_gaussian_eccv24
+
 ```
 
 #### 2. Install with Docker
@@ -113,6 +119,7 @@ The test scenes are selected for its rich details, diversity and challenging sce
 ### Evaluation
 1. To run inference on all our test scenes, you can use the following command. If you do not feel like running the inference, go to 2.
 ```bash
+conda activate supergaussian_evaluation
 python main_super_gaussian.py    # change upsampling_prior variable in Line 23 to switch between different priors.
 python evaluation.py             # change target variable in Line 94 to switch between different priors.
 ```
