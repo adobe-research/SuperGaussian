@@ -14,23 +14,12 @@ In this codebase, we provide a SuperGaussian implementation on a third-parties v
 Additionally, our codebase provides 3D upsampling evaluations on the MVImgNet testset given the upsampled image sequences from the image prior GigaGAN (image) and video prior Videogigagan (video).
 Hopefully, this could help the community to reproduce our results and compare with other methods.
 
-### Citation
-Please cite our paper if you find this repo useful!
-```bibtex
-@inproceedings{Shen2024SuperGaussian,
-  title = {SuperGaussian: Repurposing Video Models for 3D Super Resolution},
-  author = {Shen, Yuan and Ceylan, Duygu and Guerrero, Paul and Xu, Zexiang and Mitra, {Niloy J.} and Wang, Shenlong and Fr{\"u}hst{\"u}ck, Anna},
-  booktitle = {European Conference on Computer Vision (ECCV)},
-  year = {2024},
-}
-```
+## Dependencies
 
-### Dependencies
-
-#### 0. Hardware Requirements
+### 0. Hardware Requirements
 - NVIDIA GPU with CUDA support 11.8. 
 - The code has been tested with NVIDIA A6000 on Ubuntu 20.04.
-#### 1. Install with Conda
+### 1. Install with Conda
 ```bash
 conda create -n super_gaussian_eccv24 python=3.8 -y
 
@@ -64,7 +53,7 @@ conda activate super_gaussian_eccv24
 # change the python environment path in sg_utils/sg_helpers.py:20 and sg_utils/sg_helpers.py:47 to your conda environment path
 ```
 
-#### 2. Install with Docker (Recommended)
+### 2. Install with Docker (Recommended)
 ```bash
 export DATA_PATH=[your data path (see testdata downloading section)]
 docker pull yshen47/adobe_supergaussian:latest
@@ -72,7 +61,7 @@ docker run -it -v $DATA_PATH:/mnt/data --shm-size=64g --gpus all yshen47/adobe_s
 cd /root/SuperGaussian # By default, you should be at this directory
 ```
 
-### Test data Download
+## Test data Download
 
 1. Download the [MVImgNet test set](https://uofi.box.com/s/d13gifxwz573cr6li37r1m39cczrvzhm) with 523 scenes. Unzip the dataset in the project root, i.e., SuperGaussian/data. This should be the DATA_PATH to mount in your docker container. 
 Each scene are grouped first by its category id and then scene id, defined by MVImgNet.
@@ -133,10 +122,10 @@ The test scenes are selected for its rich details, diversity and challenging sce
         --- traj_1_001.png
         ...
 ```
-### RealBasicVSR Checkpoints Download
+## RealBasicVSR Checkpoints Download
 Download the pre-trained weights to `third_parties/RealBasicVSR/checkpoints/`. ([Dropbox](https://www.dropbox.com/s/eufigxmmkv5woop/RealBasicVSR.pth?dl=0) / [Google Drive](https://drive.google.com/file/d/1OYR1J2GXE90Zu2gVU5xc0t0P_UmKH7ID/view) / [OneDrive](https://entuedu-my.sharepoint.com/:u:/g/personal/chan0899_e_ntu_edu_sg/EfMvf8H6Y45JiY0xsK4Wy-EB0kiGmuUbqKf0qsdoFU3Y-A?e=9p8ITR))
 
-### Evaluation
+## Evaluation
 1. To run inference on all our test scenes, you can use the following command. If you do not feel like running the inference, go to 2.
 ```bash
 conda activate super_gaussian_eccv24
@@ -216,3 +205,18 @@ and final 4x renderings with all poses in the test scenes.
 ```
 Note some of the above numbers for GigaGAN and VideoGigaGAN are slightly better than the reported results in the paper, as we re-generated the above cached upsampled results in different dev environment used during our submission (some seeds might be different).
 
+## Citation
+If you use this code for your research, please cite our paper.
+```
+@inproceedings{Shen2024SuperGaussian,
+  title = {SuperGaussian: Repurposing Video Models for 3D Super Resolution},
+  author = {Shen, Yuan and Ceylan, Duygu and Guerrero, Paul and Xu, Zexiang and Mitra, {Niloy J.} and Wang, Shenlong and Fr{\“u}hst{\“u}ck, Anna},
+  booktitle = {European Conference on Computer Vision (ECCV)},
+  year = {2024}
+}
+```
+## Acknowledgements
+This project was the product of an internship by Yuan Shen with Adobe Research.
+We would like to thank Yiran Xu, Difan Liu, and Taesung Park for their discussions related to VideoGigaGAN. Their support has been essential to
+the development and success of SuperGaussian. We also thank Nathan Carr for providing Gaussian Splat examples. 
+Finally, we thank the authors of RealBasicVSR and 3D Gaussian Splats for open-sourcing their codebases, which we modified on top of for this codebase. 
