@@ -33,7 +33,7 @@ class Args:
     num_gpus: int = (1 if DEBUG else -1)
     """number of gpus to use. """
 
-    gaussian_version: str = 'LR_131072_gaussian'
+    gaussian_version: str = 'LR_131072_gaussian' # low_res gaussian version which has a fixed 131072 gaussians for each scene.
     """version of the gaussian splats"""
 
 def storePly(path, xyz, rgb):
