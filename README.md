@@ -139,8 +139,9 @@ Download the pre-trained weights to `third_parties/RealBasicVSR/checkpoints/`. (
 ### Evaluation
 1. To run inference on all our test scenes, you can use the following command. If you do not feel like running the inference, go to 2.
 ```bash
-conda activate supergaussian_evaluation
+conda activate super_gaussian_eccv24
 python main_super_gaussian.py    # change upsampling_prior variable in Line 23 to switch between different priors.
+conda activate supergaussian_evaluation
 python evaluation.py             # change target variable in Line 94 to switch between different priors.
 ```
 Note main_super_gaussian.py will create a folder in the root directory to store the upsampled 3D represented in 3DGS and final renderings for each scene. It also outputs a performance json averaged across each scene. And evaluation.py calculates performance by averaging image pairs across entire test set (instead of at scene-levels) 
