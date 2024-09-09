@@ -10,7 +10,6 @@ import torch
 from pathlib import Path
 import time
 from tqdm import tqdm
-from torchmetrics.image.inception import InceptionScore
 
 def worker(
     queue: multiprocessing.JoinableQueue,
