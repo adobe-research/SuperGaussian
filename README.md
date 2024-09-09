@@ -29,7 +29,7 @@ Please cite our paper if you find this repo useful!
 
 #### 0. Hardware Requirements
 - NVIDIA GPU with CUDA support 11.8. 
-- The code has been tested with NVIDIA A6000.
+- The code has been tested with NVIDIA A6000 on Ubuntu 20.04.
 #### 1. Install with Conda
 ```bash
 conda create -n super_gaussian_eccv24 python=3.8 -y

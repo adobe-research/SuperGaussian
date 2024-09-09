@@ -17,7 +17,7 @@ def run_video_upsampling(video_upsampling_prior, gpu_i, input_path, output_path)
     if video_upsampling_prior == 'realbasicvsr':
         command = (
             f"cd third_parties/RealBasicVSR && " 
-            f"CUDA_VISIBLE_DEVICES={gpu_i} /root/miniconda3/envs/realbasicvsr/bin/python inference_realbasicvsr_4x.py " # change to realbasicvsr conda env python path
+            f"CUDA_VISIBLE_DEVICES={gpu_i} ~/miniconda3/envs/realbasicvsr/bin/python inference_realbasicvsr_4x.py " # change to realbasicvsr conda env python path
             f"configs/realbasicvsr_x4.py "
             f"checkpoints/RealBasicVSR_x4.pth {input_path} {output_path} "
         )
@@ -44,7 +44,7 @@ def fitting_with_3dgs(image_path, gt_img_path, transform_path, initial_pcd_path,
 
     command = (
         f"cd third_parties/gaussian-splatting && "
-        f"CUDA_VISIBLE_DEVICES={gpu_i} /root/miniconda3/envs/super_gaussian_eccv24/bin/python train.py " # change to your python environment
+        f"CUDA_VISIBLE_DEVICES={gpu_i} ~/miniconda3/envs/super_gaussian_eccv24/bin/python train.py " # change to your python environment
         f"--exp_name {output_path} "
         f"--iterations {optimization_step} "
         f"-s {output_path} --use_low_res_as_gt --num_of_gaussians {num_of_gaussians} -r 1"
