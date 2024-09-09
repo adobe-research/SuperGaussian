@@ -133,7 +133,7 @@ python main_super_gaussian.py    # change upsampling_prior variable in Line 23 t
 conda activate supergaussian_evaluation
 python evaluation.py             # change target variable in Line 94 to switch between different priors.
 ```
-Note ``main_super_gaussian.py`` will create a folder in the root directory to store the upsampled 3D represented in 3DGS and final renderings for each scene. It also outputs a performance json averaged across each scene. And evaluation.py calculates performance by averaging image pairs across entire test set (instead of at scene-levels) 
+Note ``main_super_gaussian.py`` will create a folder in the root directory to store the upsampled 3D represented in 3DGS and final renderings for each scene. It also outputs a performance json averaged across each scene. And ``evaluation.py`` calculates performance by averaging image pairs across entire test set (instead of at scene-levels) 
 
 2. We provide the above evaluation results for all priors, if you hope to make an Apple-to-Apple comparison between our SuperGaussian using VideoGigaGAN with your method. 
 You can download from links in the table below to get all our inference results on GigaGAN, VideoGigaGAN and RealBasicVSR. You are able to access 3D upsampled gaussians 
