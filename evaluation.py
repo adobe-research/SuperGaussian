@@ -161,8 +161,6 @@ if __name__ == '__main__':
         scores.append(score)
     print(f'{target} NIQE: {torch.stack(scores).mean()}')
 
-
-    inception = InceptionScore()
     img_list = list(sorted(Path(pred_cache_path).glob('*.png')))
     import random
     random.seed(0)
