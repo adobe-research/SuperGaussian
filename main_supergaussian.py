@@ -73,7 +73,7 @@ def worker(
         if item is None:
             break
         batch, gpu_i = item
-        curr_output_path = f"{os.path.dirname(os.path.abspath(__file__))}/test_results/{batch['scene_dir'][0]}/super_gaussian_with_{args.upsampling_prior}"
+        curr_output_path = f"{os.path.dirname(os.path.abspath(__file__))}/{args.upsampling_prior}_test_results/{batch['scene_dir'][0]}/super_gaussian_with_{args.upsampling_prior}"
 
         os.makedirs(curr_output_path, exist_ok=True)
         with open(f"{curr_output_path}/config.json", 'w+') as f:
@@ -136,11 +136,11 @@ def worker(
         latest_res_path = image_folder
         latest_gaussian_ckpt = None
         for plan in args.procedure:
-            curr_output_path = f"{os.path.dirname(os.path.abspath(__file__))}/test_results/{batch['scene_dir'][0]}/super_gaussian_with_{args.upsampling_prior}/step_{step}_{plan}"
+            curr_output_path = f"{os.path.dirname(os.path.abspath(__file__))}/{args.upsampling_prior}_test_results/{batch['scene_dir'][0]}/super_gaussian_with_{args.upsampling_prior}/step_{step}_{plan}"
             if plan == 'upsampling':
                 output_resolution = latest_resolution * 4 # since the VSR prior is doing 4x upsampling
                 if args.upsampling_prior == 'realbasicvsr':
-                    run_video_upsampling(upsampling_prior, gpu_i,
+                    run_video_upsampling('realbasicvsr', gpu_i,
                                      latest_res_path,
                                      f"{curr_output_path}/{output_resolution}x{output_resolution}",
                                      )

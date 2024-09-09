@@ -14,6 +14,9 @@ Hopefully, this could help the community to reproduce our results and compare wi
 
 ### Dependencies
 
+#### 0. Hardware Requirements
+- NVIDIA GPU with CUDA support 11.8. 
+- The code has been tested with NVIDIA A6000.
 #### 1. Install with Conda
 ```bash
 conda create -n super_gaussian_eccv24 python=3.8 -y
@@ -39,19 +42,20 @@ pip install mmedit==0.15.0
 # install Evaluation dependencies in a third conda env
 conda create -n supergaussian_evaluation python=3.10 -y
 conda activate supergaussian_evaluation
+pip install torch==2.0.1 torchvision==0.15.2 --index-url https://download.pytorch.org/whl/cu118
 pip install pyiqa torchmetrics
-  
+pip install torch-fidelity
+
 conda activate super_gaussian_eccv24
 
 ```
 
 #### 2. Install with Docker
 ```bash
+export DATA_PATH=[your data path (see testdata downloading section)]
 docker pull yshen47/adobe_supergaussian:latest
-docker run -it -v $(DATA_PATH):/mnt/data --shm-size=64g --gpus all yshen47/adobe_supergaussian:latest bash
-cd /root
-cd SuperGaussian_ECCV24
-ln -s /mnt/data data
+docker run -it -v $DATA_PATH:/mnt/data --shm-size=64g --gpus all yshen47/adobe_supergaussian:latest bash
+cd /root/SuperGaussian # By default, you should be at this directory
 ```
 
 ### Test data Download
@@ -115,6 +119,8 @@ The test scenes are selected for its rich details, diversity and challenging sce
         --- traj_1_001.png
         ...
 ```
+### RealBasicVSR Checkpoints Download
+Download the pre-trained weights to `third_parties/RealBasicVSR/checkpoints/`. ([Dropbox](https://www.dropbox.com/s/eufigxmmkv5woop/RealBasicVSR.pth?dl=0) / [Google Drive](https://drive.google.com/file/d/1OYR1J2GXE90Zu2gVU5xc0t0P_UmKH7ID/view) / [OneDrive](https://entuedu-my.sharepoint.com/:u:/g/personal/chan0899_e_ntu_edu_sg/EfMvf8H6Y45JiY0xsK4Wy-EB0kiGmuUbqKf0qsdoFU3Y-A?e=9p8ITR))
 
 ### Evaluation
 1. To run inference on all our test scenes, you can use the following command. If you do not feel like running the inference, go to 2.
@@ -123,6 +129,7 @@ conda activate supergaussian_evaluation
 python main_super_gaussian.py    # change upsampling_prior variable in Line 23 to switch between different priors.
 python evaluation.py             # change target variable in Line 94 to switch between different priors.
 ```
+Note main_super_gaussian.py will create a folder in the root directory to store the upsampled 3D represented in 3DGS and final renderings for each scene. It also outputs a performance json averaged across each scene. And evaluation.py calculates performance by averaging image pairs across entire test set (instead of at scene-levels) 
 2. We provide the above evaluation results for all priors, if you hope to make an Apple-to-Apple comparison between our SuperGaussian using VideoGigaGAN with your method. 
 You can download from links in the table below to get all our inference results on GigaGAN, VideoGigaGAN and RealBasicVSR. You are able to access 3D upsampled gaussians 
 and final 4x renderings with all poses in the test scenes.
