@@ -133,19 +133,19 @@ python main_super_gaussian.py    # change upsampling_prior variable in Line 23 t
 conda activate supergaussian_evaluation
 python evaluation.py             # change target variable in Line 94 to switch between different priors.
 ```
-Note main_super_gaussian.py will create a folder in the root directory to store the upsampled 3D represented in 3DGS and final renderings for each scene. It also outputs a performance json averaged across each scene. And evaluation.py calculates performance by averaging image pairs across entire test set (instead of at scene-levels) 
+Note ``main_super_gaussian.py`` will create a folder in the root directory to store the upsampled 3D represented in 3DGS and final renderings for each scene. It also outputs a performance json averaged across each scene. And evaluation.py calculates performance by averaging image pairs across entire test set (instead of at scene-levels) 
 
 2. We provide the above evaluation results for all priors, if you hope to make an Apple-to-Apple comparison between our SuperGaussian using VideoGigaGAN with your method. 
 You can download from links in the table below to get all our inference results on GigaGAN, VideoGigaGAN and RealBasicVSR. You are able to access 3D upsampled gaussians 
 and final 4x renderings with all poses in the test scenes.
 
-| Priors       | Results after running main_super_gaussian.py                                | Results after running evaluation.py |
+| Priors       | Results after running ``main_super_gaussian.py``                                | Results after running ``evaluation.py`` |
 |--------------|-----------------------------------------------------------------------------| ---------|
 | GigaGAN      | [downloading link](https://uofi.box.com/s/cjqqlr0zfjw0ew02p1m5cm8ge6v73oow) | gigagan_prior folder in [link](https://uofi.box.com/s/cwjeo5sp6t2d81wcof0okqv6fn7aje8p) |
 | VideoGigaGAN | [downloading link](https://uofi.box.com/s/xma4iqhirebmtzzj01s40jnjdg12unnk) | realbasicvsr_prior folder in [link](https://uofi.box.com/s/cwjeo5sp6t2d81wcof0okqv6fn7aje8p) |
 | RealBasicVSR | [downloading link](https://uofi.box.com/s/lzakjip07upgullx7xunu6sausdydd95) | videogigagan_prior folder in [link](https://uofi.box.com/s/cwjeo5sp6t2d81wcof0okqv6fn7aje8p) |
 
-2.1 Here is detailed information on the output file structure after running main_super_gaussian.py
+2.1 Here is detailed information on the output file structure after running ``main_super_gaussian.py``
 ```
 --- [category_id]/[scene_id]
     --- 64x64               # low-res images
@@ -177,7 +177,7 @@ and final 4x renderings with all poses in the test scenes.
     --- transforms.json                  # camera info used for this scene
     --- surface_pcd_131072_seed_0.ply    # low-res 3DGS, same as the one in input.ply (which is copied from this file)
 ```
-2.2 Here is detailed information on the output file structure after running evaluation.py
+2.2 Here is detailed information on the output file structure after running ``evaluation.py``
 ```
 --- evaluations
     --- gigagan_prior/realbasicvsr_prior/videogigagan_prior
