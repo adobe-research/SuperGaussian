@@ -36,6 +36,8 @@ def get_images(scene_dir):
     cam_infos = sorted(cam_extrinsics.values(), key=lambda x: x.name)
     for cam_info in list(cam_infos):
         filename = f"traj_0_{(int(cam_info.name[:-4])-1):03d}.png"
+
+        # here, the gt refers to HR_gaussian rendering on traj_0 (since original images in MVImgNet does not cover our novel poses:))
         image_path = os.path.join(
             dataset_root, "mvimgnet_testset_500", scene_dir, "HR_131072_gaussian", filename
         )
@@ -54,7 +56,7 @@ def get_images(scene_dir):
         except:
             gt_image.save(os.path.join(gt_cache_path, name))
 
-        # load pred
+        # load 3D upsampled renderings on traj_0
         # filename = f"{(int(cam_info.name[:-4]) - 1):03d}.png"
         image_path = os.path.join(
             target_root, scene_dir, f"super_gaussian_with_{target}/step_2_fitting_with_3dgs/point_cloud/iteration_2000/predicted", filename
@@ -69,6 +71,7 @@ def get_images(scene_dir):
         except:
             image.save(os.path.join(pred_cache_path, name))
 
+        # here we load images from original MVImgNet to calculate FID.
         image_path = os.path.join(
             dataset_root, "mvimgnet_testset_500", scene_dir, "gt_rgb", cam_info.name[:-4] + '.png'
         )
