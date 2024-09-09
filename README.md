@@ -119,13 +119,13 @@ python evaluation.py             # change target variable in Line 94 to switch b
 2. We provide the above evaluation results for all priors, if you hope to make an Apple-to-Apple comparison between our SuperGaussian using VideoGigaGAN with your method. 
 You can download from links in the table below to get all our inference results on GigaGAN, VideoGigaGAN and RealBasicVSR. You are able to access 3D upsampled gaussians 
 and final 4x renderings with all poses in the test scenes.
-```
-| Priors       | Results after running main_super_gaussian.py | Results after running evaluation.py |
-|--------------|---------| ---------|
-| GigaGAN      | [link](https://uofi.box.com/s/cjqqlr0zfjw0ew02p1m5cm8ge6v73oow)  | gigagan_prior folder in [link](https://uofi.box.com/s/cwjeo5sp6t2d81wcof0okqv6fn7aje8p) |
-| VideoGigaGAN | [link](https://uofi.box.com/s/xma4iqhirebmtzzj01s40jnjdg12unnk)  | realbasicvsr_prior folder in [link](https://uofi.box.com/s/cwjeo5sp6t2d81wcof0okqv6fn7aje8p) |
-| RealBasicVSR | [link](https://uofi.box.com/s/lzakjip07upgullx7xunu6sausdydd95)  | videogigagan_prior folder in [link](https://uofi.box.com/s/cwjeo5sp6t2d81wcof0okqv6fn7aje8p) |
-```
+
+| Priors       | Results after running main_super_gaussian.py                                | Results after running evaluation.py |
+|--------------|-----------------------------------------------------------------------------| ---------|
+| GigaGAN      | [downloading link](https://uofi.box.com/s/cjqqlr0zfjw0ew02p1m5cm8ge6v73oow) | gigagan_prior folder in [link](https://uofi.box.com/s/cwjeo5sp6t2d81wcof0okqv6fn7aje8p) |
+| VideoGigaGAN | [downloading link](https://uofi.box.com/s/xma4iqhirebmtzzj01s40jnjdg12unnk) | realbasicvsr_prior folder in [link](https://uofi.box.com/s/cwjeo5sp6t2d81wcof0okqv6fn7aje8p) |
+| RealBasicVSR | [downloading link](https://uofi.box.com/s/lzakjip07upgullx7xunu6sausdydd95) | videogigagan_prior folder in [link](https://uofi.box.com/s/cwjeo5sp6t2d81wcof0okqv6fn7aje8p) |
+
 
 3. We provide the quantitative results using the above cached upsampling images below. Note RealBasicVSR is a third-party method, which we newly benchmarked. 
 ```
