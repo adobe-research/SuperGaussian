@@ -142,8 +142,8 @@ and final 4x renderings with all poses in the test scenes.
 | Priors       | Results after running ``main_super_gaussian.py``                                | Results after running ``evaluation.py`` |
 |--------------|-----------------------------------------------------------------------------| ---------|
 | GigaGAN      | [downloading link](https://uofi.box.com/s/cjqqlr0zfjw0ew02p1m5cm8ge6v73oow) | gigagan_prior folder in [link](https://uofi.box.com/s/cwjeo5sp6t2d81wcof0okqv6fn7aje8p) |
-| VideoGigaGAN | [downloading link](https://uofi.box.com/s/xma4iqhirebmtzzj01s40jnjdg12unnk) | videogigagan_prior folder in [link](https://uofi.box.com/s/cwjeo5sp6t2d81wcof0okqv6fn7aje8p) |
-| RealBasicVSR | [downloading link](https://uofi.box.com/s/lzakjip07upgullx7xunu6sausdydd95) | realbasicvsr_prior folder in [link](https://uofi.box.com/s/cwjeo5sp6t2d81wcof0okqv6fn7aje8p) |
+| VideoGigaGAN | [downloading link](https://uofi.box.com/s/xma4iqhirebmtzzj01s40jnjdg12unnk) | videogigagan_prior folder in [link](https://uofi.box.com/s/cwjeo5sp6t2d81wcof0okqv6fn7aje8p) (the same link as the above, but different folder after unzipping) |
+| RealBasicVSR | [downloading link](https://uofi.box.com/s/lzakjip07upgullx7xunu6sausdydd95) | realbasicvsr_prior folder in [link](https://uofi.box.com/s/cwjeo5sp6t2d81wcof0okqv6fn7aje8p) (the same link as the above, but different folder after unzipping) |
 
 2.1 Here is detailed information on the output file structure after running ``main_super_gaussian.py``
 ```
