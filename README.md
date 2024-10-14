@@ -63,7 +63,7 @@ cd /root/SuperGaussian # By default, you should be at this directory
 
 ## Test data Download
 
-1. Download the [MVImgNet test set](https://uofi.box.com/s/d13gifxwz573cr6li37r1m39cczrvzhm) with 523 scenes. Unzip the dataset in the project root, i.e., ``SuperGaussian/data``. This should be the DATA_PATH to mount in your docker container. 
+1. Download the [MVImgNet test set](https://uofi.box.com/s/d13gifxwz573cr6li37r1m39cczrvzhm) with 523 scenes. Unzip the dataset in the project root (using jar xf data.zip, otherwise unzip command has fork bomb complaints), i.e., ``SuperGaussian/data``. This should be the DATA_PATH to mount in your docker container. 
 Each scene are grouped first by its category id and then scene id, defined by MVImgNet.
 The test scenes are selected for its rich details, diversity and challenging scenarios. Within each scene folder, the directory are organized as follows. Please use our provided dataloader to load data (``dataset/mvimg_test_dataset.py``)
 ```     
