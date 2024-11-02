@@ -197,7 +197,7 @@ We recommend also trying to use Upscale-a-video video prior in our SuperGaussian
             --- XXX.png
             ...
 ```
-3. We provide the quantitative results using the above cached upsampling images below. Note RealBasicVSR is a third-party method, which we newly benchmarked. 
+3. We provide the quantitative results using the above cached upsampling images below. Note RealBasicVSR is a third-party method, which we newly benchmarked. Meanwhile, we recommend also trying to use Upscale-a-video video prior in our SuperGaussian framework, one alternative to VideoGigaGAN which should give much better performance than RealBasicVSR.
 ```
 | Priors       | LPIPS ↓ | NIQE  ↓ | FID  ↓ | 
 |--------------|---------|---------|--------|
