@@ -139,6 +139,8 @@ Note ``main_super_gaussian.py`` will create a folder in the root directory to st
 You can download from links in the table below to get all our inference results on GigaGAN, VideoGigaGAN and RealBasicVSR. You are able to access 3D upsampled gaussians 
 and final 4x renderings with all poses in the test scenes.
 
+We recommend also trying to use Upscale-a-video video prior in our SuperGaussian framework, one alternative to VideoGigaGAN which should give much better performance than RealBasicVSR. 
+
 | Priors       | Results after running ``main_super_gaussian.py``                                | Results after running ``evaluation.py`` |
 |--------------|-----------------------------------------------------------------------------| ---------|
 | GigaGAN      | [downloading link](https://uofi.box.com/s/cjqqlr0zfjw0ew02p1m5cm8ge6v73oow) | gigagan_prior folder in [link](https://uofi.box.com/s/cwjeo5sp6t2d81wcof0okqv6fn7aje8p) |
